@@ -1,26 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <model-box />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ModelBox from "@/components/ModelBox.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    ModelBox,
+  },
+  data() {
+    return {
+      src: require("@/assets/background.svg"),
+    };
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@font-face {
+  font-family: "Roboto";
+  src: local("Roboto"), url(./fonts/Roboto-Regular.ttf) format("truetype");
+}
+* {
+  font-family: "Roboto";
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 16px;
+  /* identical to box height, or 107% */
+
+  color: #9994b5;
 }
 </style>
