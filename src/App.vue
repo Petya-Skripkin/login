@@ -19,7 +19,6 @@ export default {
   data() {
     return {
       number: String,
-      src: require("@/assets/background.svg"),
       logo: require("@/assets/logo.svg"),
       pick: "SMS",
       items: ["SMS", "WhatsApp", "Telegram"],
@@ -32,10 +31,6 @@ export default {
 @font-face {
   font-family: "Roboto";
   src: local("Roboto"), url(./fonts/Roboto-Regular.ttf) format("truetype");
-}
-
-html, body {
-  overflow-x: hidden;
 }
 
 * {

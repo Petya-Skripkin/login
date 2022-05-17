@@ -28,9 +28,10 @@ export default {
 
 <style>
 .inviz {
-  position: absolute;
-  left: 99999px;
-  z-index: 0;
+  display: none;
+  /* z-index: 0;
   opacity: 0;
+  position: absolute;
+  transform: scale(0.0001); */
 }
 </style>

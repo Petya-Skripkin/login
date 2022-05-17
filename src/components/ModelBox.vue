@@ -1,5 +1,5 @@
 <template>
-  <form class="img" @submit.prevent :style="`background-image: url(${src})`">
+  <form class="img" @submit.prevent>
     <img :src="logo" alt="" class="logo" />
     <div class="model">
       <h2 class="title">Авторизация</h2>
@@ -40,7 +40,6 @@ export default {
     }
   },
   props: {
-    src: String,
     logo: String,
     items: Array,
   },
@@ -124,13 +123,6 @@ export default {
 .check {
   color: #ff00b1;
   background: #101727;
-}
-
-.inviz {
-  position: absolute;
-  left: 99999px;
-  z-index: 0;
-  opacity: 0;
 }
 
 @media screen and (max-width: 1000px) {
