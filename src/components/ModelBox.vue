@@ -1,73 +1,81 @@
 <template>
-  <div class="img" :style="`background-image: url(${src})`">
+  <form class="img" @submit.prevent :style="`background-image: url(${src})`">
     <img :src="logo" alt="" class="logo" />
     <div class="model">
       <h2 class="title">Авторизация</h2>
       <p>Телефон:</p>
-      <input
-        class="input"
-        type="text"
-        v-maska="'+7(###)-###-##-##'"
+      <my-input
+        v-model="updateNumber"
+        maska="+7(###)-###-##-##"
         placeholder="+7 (___) ___ - __ - __"
       />
       <label class="agree">
-        <input type="checkbox" name="agree" style="margin-right: 12px;" />
+        <input type="checkbox" name="agree" style="margin-right: 12px" />
         Я соглашаюсь на передачу и обработку персональных данных и подтверждаю
         свое совершеннолетие.
       </label>
       <p>Авторизация через:</p>
       <div class="net">
-        <label class="radio" v-for="item in items" :key="item" :class="pick === item && 'check'">
-          <input
-            type="radio"
-            name="radio"
-            :value="item"
-            v-model="pick"
-            class="inviz"
-          />
-          {{item}}
+        <label
+          class="radio"
+          v-for="item in items"
+          :key="item"
+          :for="item"
+          :class="pick === item && 'check'"
+        >
+          <radio-btn :value="item" v-model:value="pick" />
+          {{ item }}
         </label>
       </div>
-      <button class="button">ПОЛУЧИТЬ КОД</button>
+      <my-button @click="onSubmit">ПОЛУЧИТЬ КОД</my-button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      src: require("@/assets/background.svg"),
-      logo: require("@/assets/logo.svg"),
       pick: "SMS",
-      items: ['SMS', 'WhatsApp', 'Telegram']
-    };
+    }
   },
+  props: {
+    src: String,
+    logo: String,
+    items: Array,
+  },
+  methods: {
+    updateNumber(e) {
+      this.$emit('update:number', e.target.value)
+    },
+    updatePick() {
+      this.$emit('update:pick', this.pick)
+    },
+    onSubmit() {
+      console.log("It's work");
+    }
+  }
 };
 </script>
 
 <style scoped>
+.img {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background: rgb(80, 55, 104);
+}
+
 .model {
   max-width: 25%;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: 20%;
+  margin-top: 10%;
   padding: 60px 100px;
   background: #172144;
-}
-
-.img {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background: rgb(80, 55, 104);
 }
 
 .logo {
@@ -89,17 +97,6 @@ export default {
   text-transform: uppercase;
 
   color: #ffffff;
-}
-
-.input {
-  font-size: 20px;
-  padding: 12px;
-  margin-top: 15px;
-  margin-bottom: 25px;
-  border: 1px solid rgba(153, 148, 181, 0.1);
-  border-radius: 8px;
-  background: rgba(16, 23, 39, 0.5);
-  outline: none;
 }
 
 .agree {
@@ -136,15 +133,35 @@ export default {
   opacity: 0;
 }
 
-.button {
-  margin-top: 35px;
-  padding: 15px 0;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0px 0px 10px #d70e93;
-  background: linear-gradient(90deg, #ff00b1 0%, #b423c1 100%);
-  color: white;
-  cursor: pointer;
-  outline: none;
+@media screen and (max-width: 1000px) {
+  .logo {
+    height: 40px;
+  }
+  .model {
+    max-width: 50%;
+    padding: 15px 25px;
+  }
+  .net {
+    flex-direction: column;
+    border-radius: 20px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+
+  .model {
+    max-width: 60%;
+    padding: 10px 20px;
+  }
+
+  .title{
+    font-size: 20px;
+  }
+
+  .agree {
+    font-size: 8px;
+  }
 }
 </style>
